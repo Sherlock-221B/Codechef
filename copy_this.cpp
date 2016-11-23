@@ -30,6 +30,8 @@ using namespace std;
 typedef vector<int> VI;
 typedef pair<int,int> PII;
 typedef vector<pair<int,int> > VPII;
+typedef list<pair<int,int> > LPII;
+typedef vector<list<pair<int,int> > > VLPII;
 
 template<typename T, typename U> inline void MIN(T &x, U y) { if(y < x) x = y; }
 template<typename T, typename U> inline void MAX(T &x, U y) { if(x < y) x = y; }

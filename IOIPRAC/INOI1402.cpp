@@ -46,8 +46,9 @@ int main(){
         graph[x].PB(MP(y,p));
         graph[y].PB(MP(x,p));
     }
-    vector<VI> vvi;
-    VI distances;
+    vector<VI> distances;
+    //running dijkstra's APSP
+    
 
     return 0;
 }
