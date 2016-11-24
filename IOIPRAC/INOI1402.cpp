@@ -87,7 +87,7 @@ int main(){
     int answer=0;
     LOOPE(i,1,C){
         LOOPE(j,i+1,C){
-            if(all_distances[i][j]>=INF) answer=max(answer,all_distances[i][j]);
+            if(all_distances[i][j]!=INF) answer=max(answer,all_distances[i][j]);
         }
     }
     cout<<answer;
