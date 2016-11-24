@@ -13,15 +13,14 @@
 #include <ctime>
 #include <cstring>
 #include <cctype>
-#include <cassert>
 #include <limits>
 #include <functional>
 using namespace std;
-
 #define LOOP(i,n) for(int (i)=0;(i)<(int)(n);++(i))
 #define LOOPE(i,l,u) for(int (i)=(int)(l);(i)<=(int)(u);++(i))
 #define LOOPL(i,l,u) for(int (i)=(int)(l);(i)<(int)(u);++(i))
-#define EACH(it,object) for(auto (it)=(object).begin();(it)!=(object).end();++(it))
+#define ITERATE(it,object) for(auto (it)=(object).begin();(it)!=(object).end();++(it))
+#define ALL(object) (object).begin(),(object).end()
 #define PB(item) push_back(item)
 #define MP(item1,item2) make_pair((item1),(item2))
 #define INF 0x3f3f3f3f
@@ -29,26 +28,69 @@ using namespace std;
 #define ULL unsigned long long int
 #define LL long long int
 typedef vector<int> VI;
+typedef vector<vector<int> > VVI;
 typedef pair<int,int> PII;
 typedef vector<pair<int,int> > VPII;
-
+typedef list<pair<int,int> > LPII;
+typedef vector<list<pair<int,int> > > VLPII;
 template<typename T, typename U> inline void MIN(T &x, U y) { if(y < x) x = y; }
 template<typename T, typename U> inline void MAX(T &x, U y) { if(x < y) x = y; }
+
+
+class cmp{
+    public:
+    bool operator() (const PII &a,const PII &b){
+        return a.second>b.second;
+    }
+};
 
 
 int main(){
 
     LL C,F,x,y,p;
     cin>>C>>F;
-    vector<list<pair<int,int> > > graph(C+1);
+    VLPII graph(C+1);
     LOOP(i,F){
         cin>>x>>y>>p;
         graph[x].PB(MP(y,p));
         graph[y].PB(MP(x,p));
     }
-    vector<VI> distances;
+    VVI all_distances;
+    VI dummy;
+    all_distances.PB(dummy); //ignoring 0th index of all_distances.
     //running dijkstra's APSP
-    
+    LOOPE(vertex,1,C){
+        VLPII g(C+1);
+        LOOPE(i,1,C) ITERATE(it,graph[i]) g[i].PB(*it);
+
+        bool visited[C+1]={false};
+        VI distances(C+1,INF); //distances
+        priority_queue<PII,VPII,cmp> pq;
+        
+        pq.push(MP(vertex,0));
+        distances[vertex]=0;
+        PII p;
+        while(!pq.empty()){
+            p=pq.top();
+            pq.pop();
+            if(visited[p.first]) continue;
+            ITERATE(it,g[p.first]){
+                if(!visited[it->first] && distances[it->first]>distances[p.first]+it->second){
+                    it->second=distances[it->first]=distances[p.first]+it->second;
+                    pq.push(*it);
+                }
+            }
+            visited[p.first]=true;
+        }
+        all_distances.PB(distances);
+    }
+    int answer=0;
+    LOOPE(i,1,C){
+        LOOPE(j,i+1,C){
+            if(all_distances[i][j]>=INF) answer=max(answer,all_distances[i][j]);
+        }
+    }
+    cout<<answer;
 
     return 0;
 }
