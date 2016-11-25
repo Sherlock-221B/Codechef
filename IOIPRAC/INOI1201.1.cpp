@@ -54,9 +54,8 @@ int main(){
         v.PB(MP(x,y+z));
     }
     sort(ALL(v),cmp);
-    int answer=v.front().first+v.front().second;
-    int sum=v.front().first;
-    LOOPL(i,1,N){
+    int answer=0, sum=0;
+    LOOP(i,N){
         answer=max(answer,sum+v[i].first+v[i].second);
         sum+=v[i].first;
     }

@@ -36,19 +36,38 @@ typedef vector<list<pair<int,int> > > VLPII;
 template<typename T, typename U> inline void MIN(T &x, U y) { if(y < x) x = y; }
 template<typename T, typename U> inline void MAX(T &x, U y) { if(x < y) x = y; }
 
+template<class T1> void DEBUG(T1 e1)
+{
+    cout << e1 << endl;
+}
+template<class T1,class T2> void DEBUG(T1 e1, T2 e2)
+{
+    cout << e1 << ", " << e2 << endl;
+}
+template<class T1,class T2,class T3> void DEBUG(T1 e1, T2 e2, T3 e3)
+{
+    cout << e1 << ", " << e2 << ", " << e3 << endl;
+}
+template<class T1,class T2,class T3,class T4> void DEBUG(T1 e1, T2 e2, T3 e3, T4 e4)
+{
+    cout << e1 << ", " << e2 << ", " << e3 << ", " << e4 << endl;
+}
 
-class cmp{
-    public:
-    bool operator() (const object &a,const object &b){
-        return a<b;
-    }
-};
+
+// class cmp{
+//     public:
+//     bool operator() (const object &a,const object &b){
+//         return a<b;
+//     }
+// };
 
 
 
 int main(){
 
-
+int a=4,b=4;
+    string s="KKKPK";
+    DEBUG(a,b,s);
 
     return 0;
 }
