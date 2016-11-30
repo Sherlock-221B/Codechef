@@ -68,7 +68,9 @@ int main(){
 		pq.push(x);
 	}
 	int answer=numeric_limits::min();
-	
-
+	LOOP(i,N){
+		answer=max(answer,pq.top()*(N-i));
+	}
+	cout<<answer;
     return 0;
 }
