@@ -1,6 +1,7 @@
 /**
 ** Author: Vijay J.
 ** URL: http://codechef.com/users/vijay008	
+** Problem: https://www.codechef.com/ZCOPRAC/problems/ZCO14001
 **/
 
 #include <string>
@@ -51,7 +52,7 @@ template<class T1,class T2,class T3,class T4> void DEBUG(T1 e1, T2 e2, T3 e3, T4
 
 class cmp{
     public:
-    bool operator() (const int &a,const int &b){
+    bool operator() (const LL &a,const LL &b){
         return a>b;
     }
 };
@@ -60,17 +61,33 @@ class cmp{
 
 int main(){
 
-	int N,x;
-	cin>>N;
-	priority_queue<int,VI,cmp> pq;
-	LOOP(i,N){
-		cin>>x;
-		pq.push(x);
+	LL N,H;
+	cin>>N>>H;
+	VI v(N);
+	LOOP(i,N) cin>>v[i];
+	int cmd,cursor=0;
+	bool cart=false;
+	cin>>cmd;
+	while(cmd){
+		switch(cmd){
+			case 1: if(cursor>0) cursor--;
+			break;	
+			case 2: if(cursor<N-1) cursor++;
+			break;
+			case 3: if(!cart && v[cursor]>0){
+					cart=true;
+					v[cursor]--;
+					}
+			break;
+			case 4: if(cart && v[cursor]<H){
+					cart=false;
+					v[cursor]++;	
+					}
+			break;
+		}
+		cin>>cmd;
 	}
-	int answer=numeric_limits::min();
-	LOOP(i,N){
-		answer=max(answer,pq.top()*(N-i));
-	}
-	cout<<answer;
+	LOOP(i,N) cout<<v[i]<<" ";
+	
     return 0;
 }

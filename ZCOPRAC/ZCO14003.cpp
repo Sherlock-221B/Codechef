@@ -1,7 +1,7 @@
 /**
 ** Author: Vijay J.
 ** URL: http://codechef.com/users/vijay008	
-** Problem: 
+** Problem: https://www.codechef.com/ZCOPRAC/problems/ZCO14003
 **/
 
 #include <string>
@@ -50,20 +50,29 @@ template<class T1,class T2,class T3> void DEBUG(T1 e1, T2 e2, T3 e3){    cout <<
 template<class T1,class T2,class T3,class T4> void DEBUG(T1 e1, T2 e2, T3 e3, T4 e4){    cout << e1 << ", " << e2 << ", " << e3 << ", " << e4 << endl;}
 
 
-// class cmp{
-//     public:
-//     bool operator() (const object &a,const object &b){
-//         return a<b;
-//     }
-// };
+class cmp{
+    public:
+    bool operator() (const LL &a,const LL &b){
+        return a>b;
+    }
+};
 
-//gddxvv
+
 
 int main(){
 
-int a=4,b=4;
-    string s="KKKPK";
-    DEBUG(a,b,s);
-
+	LL N,x;
+	cin>>N;
+	priority_queue<LL,vector<LL>,cmp> pq;
+	LOOP(i,N){
+		cin>>x;
+		pq.push(x);
+	}
+	LL answer=numeric_limits<int>::min();
+	LOOP(i,N){
+		answer=max(answer,pq.top()*(N-i));
+		pq.pop();
+	}
+	cout<<answer;
     return 0;
 }
