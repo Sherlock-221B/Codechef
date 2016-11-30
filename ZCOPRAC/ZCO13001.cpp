@@ -1,7 +1,7 @@
 /**
 ** Author: Vijay J.
 ** URL: http://codechef.com/users/vijay008	
-** Problem: 
+** Problem: https://www.codechef.com/ZCOPRAC/problems/ZCO13001
 **/
 
 #include <string>
@@ -49,17 +49,16 @@ template<class T1,class T2> void DEBUG(T1 e1, T2 e2){    cout << e1 << ", " << e
 template<class T1,class T2,class T3> void DEBUG(T1 e1, T2 e2, T3 e3){    cout << e1 << ", " << e2 << ", " << e3 << endl;}
 template<class T1,class T2,class T3,class T4> void DEBUG(T1 e1, T2 e2, T3 e3, T4 e4){    cout << e1 << ", " << e2 << ", " << e3 << ", " << e4 << endl;}
 
-
-// class cmp{
-//     public:
-//     bool operator() (const object &a,const object &b){
-//         return a<b;
-//     }
-// };
-
-
 int main(){
-
-
+    LL N;
+    cin>>N;
+    vector<LL> v(N);
+    LOOP(i,N) cin>>v[i];
+    sort(ALL(v));
+    LL answer=(v[1]-v[0])*(N-1);
+    LOOPL(i,1,N-1){
+        answer+=((v[i+1]-v[i])*(N-i-1))+(i*(v[i+1]-v[i])*(N-i-1));
+    }
+    cout<<answer;
     return 0;
 }
