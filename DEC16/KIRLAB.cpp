@@ -1,7 +1,7 @@
 /**
 ** Author: Vijay J.
 ** URL: http://codechef.com/users/vijay008	
-** Problem: 
+** Problem: https://www.codechef.com/DEC16/problems/KIRLAB
 **/
 
 #include <string>
@@ -50,17 +50,27 @@ template<class T1,class T2> void DEBUG(T1 e1, T2 e2){    cout << e1 << ", " << e
 template<class T1,class T2,class T3> void DEBUG(T1 e1, T2 e2, T3 e3){    cout << e1 << ", " << e2 << ", " << e3 << endl;}
 template<class T1,class T2,class T3,class T4> void DEBUG(T1 e1, T2 e2, T3 e3, T4 e4){    cout << e1 << ", " << e2 << ", " << e3 << ", " << e4 << endl;}
 
-
-// class cmp{
-//     public:
-//     bool operator() (const object &a,const object &b){
-//         return a<b;
-//     }
-// };
-
+int gcd(int x,int y){
+    return y==0?x:gcd(y,x%y);
+}
 
 int main(){
-
-
+    int T,N;
+    cin>>T;
+    while(T--){
+        cin>>N;
+        vector<int> A(N),m(N,0);  //m--> index,its gcd count from that number onwards
+        LOOP(i,N) cin>>A[i];
+        int answer=0;
+        LOOPR(i,N-2,0){
+            LOOPL(j,i+1,N){
+                if(gcd(A[i],A[j])>1){
+                    m[i]=max(m[i],1+m[j]);
+                }
+            }
+            if(m[i]>answer) answer=m[i];
+        }
+        cout<<answer+1<<endl;
+    }
     return 0;
 }
