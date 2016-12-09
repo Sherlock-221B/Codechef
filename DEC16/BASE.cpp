@@ -1,5 +1,5 @@
-/**
-** Problem: https://www.codechef.com/ZCOPRAC/problems/ZCO12001
+/**	
+** Problem: https://www.codechef.com/DEC16/problems/BASE
 **/
 
 #include <string>
@@ -24,6 +24,7 @@ using namespace std;
 #define LOOP(i,n) for(int (i)=0;(i)<(int)(n);++(i))
 #define LOOPE(i,l,u) for(int (i)=(int)(l);(i)<=(int)(u);++(i))
 #define LOOPL(i,l,u) for(int (i)=(int)(l);(i)<(int)(u);++(i))
+#define LOOPR(i,l,u) for(int (i)=(int)(l);(i)>=(int)(u);--(i))
 #define ITERATE(it,object) for(auto (it)=(object).begin();(it)!=(object).end();++(it))
 #define ALL(object) (object).begin(),(object).end()
 #define PB(item) push_back(item)
@@ -47,37 +48,26 @@ template<class T1,class T2> void DEBUG(T1 e1, T2 e2){    cout << e1 << ", " << e
 template<class T1,class T2,class T3> void DEBUG(T1 e1, T2 e2, T3 e3){    cout << e1 << ", " << e2 << ", " << e3 << endl;}
 template<class T1,class T2,class T3,class T4> void DEBUG(T1 e1, T2 e2, T3 e3, T4 e4){    cout << e1 << ", " << e2 << ", " << e3 << ", " << e4 << endl;}
 
-
-
 int main(){
-
-    LL N,x;
-    cin>>N;
-    LL max_nest_depth=0,nest_depth=0,depth_pos;
-    LL max_symbols=0,symbols=0,symbol_pos,count=0,pos;
-    LOOP(i,N){
-        cin>>x;
-        symbols++;
-        if(x==1){
-            nest_depth++;
-            count++;
-            if(count==1) pos=i+1;
-            if(nest_depth>max_nest_depth){
-                max_nest_depth=nest_depth;
-                depth_pos=i+1;
-            }
+    ULL T,N;
+    cin>>T;
+    while(T--){
+        cin>>N;
+        if(N==1){
+            cout<<"INFINITY"<<endl;
         }else{
-            nest_depth=0;
-            count--;
-            if(count==0){
-                if(symbols>max_symbols){
-                    max_symbols=symbols;
-                    symbol_pos=pos;
+            ULL rem,count=1,x; //1 for base 2
+            LOOPE(base,3,N){
+                x=N;
+                while(x>0){
+                    rem=x%base;
+                    x=x/base;
                 }
-                symbols=0;
+                if(rem==1) count++;
             }
+            cout<<count<<endl;
         }
     }
-    cout<<max_nest_depth<<" "<<depth_pos<<" "<<max_symbols<<" "<<symbol_pos;
+
     return 0;
 }

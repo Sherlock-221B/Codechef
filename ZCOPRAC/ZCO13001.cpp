@@ -1,6 +1,4 @@
 /**
-** Author: Vijay J.
-** URL: http://codechef.com/users/vijay008	
 ** Problem: https://www.codechef.com/ZCOPRAC/problems/ZCO13001
 **/
 

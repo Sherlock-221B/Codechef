@@ -1,6 +1,4 @@
 /**
-** Author: Vijay J.
-** URL: http://codechef.com/users/vijay008	
 ** Problem: 
 **/
 
