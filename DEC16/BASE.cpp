@@ -56,15 +56,17 @@ int main(){
         if(N==1){
             cout<<"INFINITY"<<endl;
         }else{
-            ULL rem,count=1,x; //1 for base 2
-            LOOPE(base,3,N){
+            ULL count=0,x;
+            ULL  root=sqrt(N);
+            LOOPE(base,2,root){
                 x=N;
-                while(x>0){
-                    rem=x%base;
-                    x=x/base;
+                while(x>=base) x/=base;
+                if(x==1){
+                    DEBUG(base , "Works for" , N);
+                    count++;
                 }
-                if(rem==1) count++;
             }
+            count+=(N+1)/2;
             cout<<count<<endl;
         }
     }
