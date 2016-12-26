@@ -1,5 +1,5 @@
 /**
-** Problem: 
+** Problem: https://www.codechef.com/IOIPRAC/problems/INOI1401
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -22,8 +22,42 @@ template<class T1> void DEBUG(T1 e1){    cout << e1 << endl;}
 template<class T1,class T2> void DEBUG(T1 e1, T2 e2){    cout << e1 << ", " << e2 << endl;}
 template<class T1,class T2,class T3> void DEBUG(T1 e1, T2 e2, T3 e3){    cout << e1 << ", " << e2 << ", " << e3 << endl;}
 
-int main(){
+#define MOD 20011
 
+int main(){
+    int R,C,d;
+    cin>>R>>C>>d;
+    bool road[R][C];
+    LOOP(i,0,R-1) LOOP(j,0,C-1) cin>>road[i][j];
+    //input done
+    vector<vector<pair<int, int> > > ways(R,vector<pair<int, int> >(C)); //"first" for row, "second" for column
+    vector<vector<pair<int, int> > > limit(R,vector<pair<int, int> >(C));
+    
+    ways[0][0]=MP(1,1);
+    limit[0][0]=MP(0,0);
+    //first row
+    LOOP(j,1,C-1){
+        if(ways[0][j-1].first==0 || road[0][j]==false || limit[0][j-1].first=d){
+            ways[0][j]=MP(0,0);
+            
+        }else{
+            ways[0][j]=MP(1,0);
+        }
+    }
+    //first column
+    LOOP(i,1,R-1){
+        if(ways[i-1][0].second==0 || road[i][0]==false) ways[i][0]=MP(0,0);
+        else ways[i][0]=MP(1,0);
+    }
+    //rest
+    LOOP(i,1,R-1){
+        LOOP(j,1,C-1){
+            if(road[i][j]==false){
+
+                ways[i][j]=MP(0,0);
+            }
+        }
+    }
 
     return 0;
 }
