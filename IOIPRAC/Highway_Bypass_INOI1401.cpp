@@ -30,34 +30,48 @@ int main(){
     bool road[R][C];
     LOOP(i,0,R-1) LOOP(j,0,C-1) cin>>road[i][j];
     //input done
-    vector<vector<pair<int, int> > > ways(R,vector<pair<int, int> >(C)); //"first" for row, "second" for column
-    vector<vector<pair<int, int> > > limit(R,vector<pair<int, int> >(C));
+    vector<vector<pair<int, int> > > ways(R,vector<pair<int, int> >(C,MP(0,0))); //"first" for row, "second" for column
     
     ways[0][0]=MP(1,1);
-    limit[0][0]=MP(0,0);
     //first row
     LOOP(j,1,C-1){
-        if(ways[0][j-1].first==0 || road[0][j]==false || limit[0][j-1].first=d){
-            ways[0][j]=MP(0,0);
-            
-        }else{
-            ways[0][j]=MP(1,0);
-        }
+        if(j>d || ways[0][j-1].first==0 || !road[0][j]) ways[0][j]=MP(0,0);
+        else ways[0][j]=MP(1,0);
     }
     //first column
     LOOP(i,1,R-1){
-        if(ways[i-1][0].second==0 || road[i][0]==false) ways[i][0]=MP(0,0);
+        if(i>d || ways[i-1][0].second==0 || !road[i][0]) ways[i][0]=MP(0,0);
         else ways[i][0]=MP(1,0);
     }
     //rest
     LOOP(i,1,R-1){
         LOOP(j,1,C-1){
-            if(road[i][j]==false){
-
+            if(!road[i][j]){
                 ways[i][j]=MP(0,0);
+            }else{
+                //vertically
+                if(!road[i-1][j]) ways[i][j].second=0;
+                else{
+                    ways[i][j].second=(ways[i-1][j].first+ways[i-1][j].second)%MOD;
+                    if(i>d){
+                        int k=0;
+                        while(++k<=d) if(!road[i-k][j]) break;
+                        if(k>d) ways[i][j].second=(MOD+MOD+ways[i][j].second-ways[i-d-1][j].first-ways[i-d-1][j].second)%MOD;
+                    }
+                }
+                //horizontally
+                if(!road[i][j-1]) ways[i][j].first=0;
+                else{
+                    ways[i][j].first=(ways[i][j-1].first+ways[i][j-1].second)%MOD;
+                    if(j>d){
+                        int k=0;
+                        while(++k<=d) if(!road[i][j-k]) break;
+                        if(k>d) ways[i][j].first=(MOD+MOD+ways[i][j].first-ways[i][j-d-1].first-ways[i][j-d-1].second)%MOD;
+                    }
+                }
             }
         }
     }
-
+    cout<<(ways[R-1][C-1].first+ways[R-1][C-1].second)%MOD;
     return 0;
 }

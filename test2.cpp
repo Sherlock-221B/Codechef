@@ -1,42 +1,46 @@
-//Our Base is Under Attack
+#include<bits/stdc++.h>
 
-#include "bits/stdc++.h"
 using namespace std;
-#define rep(i,n) for(int (i)=0;(i)<(int)(n);++(i))
-#define rer(i,l,u) for(int (i)=(int)(l);(i)<=(int)(u);++(i))
-#define reu(i,l,u) for(int (i)=(int)(l);(i)<(int)(u);++(i))
-static const int INF = 0x3f3f3f3f; static const long long INFL = 0x3f3f3f3f3f3f3f3fLL;
-typedef vector<int> vi; typedef pair<int, int> pii; typedef vector<pair<int, int> > vpii; typedef long long ll;
-template<typename T, typename U> static void amin(T &x, U y) { if(y < x) x = y; }
-template<typename T, typename U> static void amax(T &x, U y) { if(x < y) x = y; }
- 
+
+#define MP make_pair
+
 int main() {
-	int T;
-	scanf("%d", &T);
-	const ll MaxN = (ll)1e12;
-	vector<ll> powers;
-	for(int x = 2; ; ++ x) {
-		ll y = (ll)x * x;
-		if(y > MaxN) break;
-		do {
-			powers.push_back(y);
-			y *= x;
-		} while(y <= MaxN);
-	}
-	sort(powers.begin(), powers.end());
-	for(int ii = 0; ii < T; ++ ii) {
-		long long N;
-		scanf("%lld", &N);
-		if(N == 1) {
-			puts("INFINITY");
-			continue;
-		}
-		//1 <= N / b^k < 2
-		//b^k <= N, N / 2 < b^k
-		ll L = (N + 2) / 2, R = N;
-		ll ans = R + 1 - L;
-		ans += upper_bound(powers.begin(), powers.end(), R) - lower_bound(powers.begin(), powers.end(), L);
-		printf("%lld\n", ans);
-	}
-	return 0;
+    int n;
+    string s;
+    cin>>n>>s;
+    unordered_set<pair<char,char> > Set;
+    int maxcnt=0;
+    for(int i=0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+            if(Set.find(MP(s[i],s[j]))==Set.end() && Set.find(MP(s[j],s[i]))==Set.end()){
+                Set.insert(MP(s[i],s[j]));
+                int count=2;
+                bool turn=true;
+                for(int k=j+1;k<n;k++){
+                    if(turn){
+                        if(s[k]==s[i]){
+                            turn=false;
+                            count++;
+                        }
+                        else if(s[k]==s[j]){
+                            count=0;
+                            break;
+                        }
+                    }else{
+                        if(s[k]==s[j]){
+                            turn=false;
+                            count++;
+                        }
+                        else if(s[k]==s[i]){
+                            count=0;
+                            break;
+                        }
+                    }
+                }
+                maxcnt=max(maxcnt,count);
+            }
+        }
+    }
+    cout<<maxcnt;
+    return 0;
 }
